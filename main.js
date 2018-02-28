@@ -13,7 +13,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 900, height: 600})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -33,6 +33,8 @@ function createWindow () {
     mainWindow = null
   })
 }
+
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -58,3 +60,7 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+// Testing
+
+
+

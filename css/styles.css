@@ -1,0 +1,220 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 30px; 
+    overflow-x: hidden;
+}
+h1 {
+    text-align: left;
+    font-size: 2.3em;
+}
+h3 {
+    text-align: center; 
+    font-size: 1.5em;
+}
+.border {
+    border: 1px solid lightgray; 
+    padding: 10px; 
+}
+pre {
+    overflow-x: scroll;
+}
+.get-file {
+    height: 170px; 
+    width: 100%;
+    background: #eee;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 5px; 
+    text-transform: uppercase;
+    font-size: 0.8em;
+    margin-bottom: 30px;
+}
+.directions {
+    text-align: justify;
+}
+.fa-custom {
+    position: absolute; 
+    top: 5px; 
+    padding: 4px; 
+    border-radius: 3px; 
+    cursor: pointer;
+}
+.fa-copy {
+    right: 5px; 
+}
+.fa-file {
+    top: 4px;
+    right: 30px; 
+}
+.fa span,
+span span {
+    position: absolute; 
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+}
+span span { z-index: 9; }
+.relative {
+    position: relative; 
+}
+.fa-cogs-custom {
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    font-size: 3em;
+    cursor: pointer;
+}
+.config-box {
+    position: absolute;
+    width: 200px; 
+    top: 65px; 
+    right: 5px; 
+    box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    border-radius: 4px;
+    padding: 10px;
+    padding-bottom: 0;
+    animation-name: fadeIn;
+    animation-duration: 0.8s;
+    display: none; 
+}
+@keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+li {
+    padding: 5px 0;
+    border-bottom: 1px dotted lightgray;
+}
+li:hover {
+    cursor: pointer;
+    color: gray;
+}
+
+
+.editor,
+.parse-container {
+    position: absolute; 
+    top: 50vh;
+    left: 50%;
+    margin-top: -45vh;
+    margin-left: -45%;
+    width: 90%;
+    min-height: 90vh;
+    background: #fff;
+    padding: 35px;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    display: none;
+    z-index: 5;
+    box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.4); 
+}
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 50vh; opacity: 1}
+}
+.overlay {
+    position: absolute; 
+    top: 0; left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.7);
+    display: none;
+}
+.x,
+.check {
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    width: 20px;
+    height: 20px; 
+    border-radius: 3px;
+    line-height: 20px;
+    font-weight: 900;
+    color: #fff; 
+    background: red;
+    cursor: pointer;
+    text-align: center;
+  }
+  .check {
+      left: 10px; 
+      background: green;
+  }
+
+pre {
+    padding-bottom: 15px;
+    margin-bottom: 20px; 
+}
+
+/**Tooltip**/
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+  /* Hide the tooltip content by default */
+  [data-tooltip]:before,
+  [data-tooltip]:after {
+    visibility: hidden;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* Position tooltip above the element */
+  [data-tooltip]:before {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-bottom: 5px;
+    margin-left: -80px;
+    padding: 7px;
+    width: 160px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #000;
+    background-color: hsla(0, 0%, 20%, 0.9);
+    color: #fff;
+    content: attr(data-tooltip);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  
+  /* Triangle hack to make tooltip look like a speech bubble */
+  [data-tooltip]:after {
+    position: absolute;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -5px;
+    width: 0;
+    border-top: 5px solid #000;
+    border-top: 5px solid hsla(0, 0%, 20%, 0.9);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: " ";
+    font-size: 0;
+    line-height: 0;
+  }
+  
+  /* Show tooltip content on hover */
+  [data-tooltip]:hover:before,
+  [data-tooltip]:hover:after {
+    visibility: visible;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity: 1;
+  }

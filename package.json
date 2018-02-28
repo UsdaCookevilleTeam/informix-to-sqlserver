@@ -1,10 +1,11 @@
 {
-  "name": "electron-quick-start",
+  "name": "informix-to-sql",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Informix to SQL Server Conversion Tool",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\""
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -14,9 +15,16 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Russ Hackett and Jay Watson",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-packager": "^11.0.0"
+  },
+  "dependencies": {
+    "lazy": "^1.0.11",
+    "mz": "^2.7.0",
+    "replace-in-file": "^3.1.1",
+    "replace-in-files": "^1.1.1"
   }
 }

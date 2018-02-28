@@ -2,18 +2,132 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Informix to SQL Server Conversion Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="container">
+      <i class="fa fa-cogs fa-cogs-custom"></i>
+      <div class="config-box">
+        <ul>
+          <li class="clear-sql">Clear SQL Scripts</li>
+          <li class="parse-files">Parse Files</li>
+          <li class="replace-chars">Edit Replace Chars</li>
+          <li class="remove-lines">Edit Remove Lines</li>
+        </ul>
+      </div>
+      <h1>SWAT: Informix to SQL<br> Server Conversion Tool</h1>
+      <div class="row">
+        <div class="one-half column directions">
+          <p><strong>Directions:</strong> Simply drop your Informix SQL export file (eg. "my-informix.sql") onto the "Drag and Drop" area to the right. This application will then display the Informix SQL and the converted SQL Server scripts below. Enjoy!  </p>
+          <p><small>--Russ Hackett and Jay Watson</small></p>
+        </div>
+        <div class="one-half column">
+          <div class="get-file">
+            Drag and Drop
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="one-half column border">
+          <h3>Informix</h3>
+          <div class="overflow-scroll">
+              <pre class="informix">INFORMIX SCRIPT WILL DISPLAY HERE</pre>
+          </div>
+        </div>
+    
+        <div class="one-half column border relative">
+            <i class="fa fa-file fa-custom"><span data-tooltip="Save SQL to File"></span></i>
+            <i class="fa fa-copy fa-custom" ><span data-tooltip="Copy SQL to Clipboard"></span></i>
+          <h3>SQL Server</h3>
+          <div class="overflow-scroll">
+              <pre class="sql-server">SQL SERVER SCRIPT WILL DISPLAY HERE</pre>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+
+    <div class="editor">
+        <span class="check save-js"><span data-tooltip="Save File">&#10004;</span></span>
+        <span class="x"><span data-tooltip="Close File">X</span></span>
+        <h3>Edit Filters</h3>
+        <pre contenteditable></pre>
+    </div>
+    <div class="overlay">
+    </div>
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+    <!-- We are using Node.js <script>document.write(process.versions.node)</script>,
+    Chromium <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>. -->
+      <div class="parse-container">
+        <span class="x x2"><span data-tooltip="Close Parser">X</span></span>
+        <div class="container">
+          <h2>Parse Files</h2>
+          <div class="row">
+            <div class="nine columns">
+                <input type="text" class="my-files u-full-width" placeholder="FULL PATH TO DIRECTORY CONTAINING FILES TO PARSE">
+            </div>
+            <div class="three columns">
+                <button class="get-files u-full-width">parse files</button>
+            </div>
+          </div>
+          <div class="row">
+              <div class="parse-results"></div>
+          </div>
+        </div>
+      </div>
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')
+    </script>
+    <script src="./scripts/convert.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./config-replace.js"></script>
+    <script src="./config-remove-line.js"></script>
+    <script src="./scripts/edit-js.js"></script>
+    <script>
+      var changesStr = '';
+function parseFilesNow(str) {
+  let fqdn = str.replace(/\\/g, '/');
+  const replace = require('replace-in-file');
+const options = {
+  files: fqdn + '/*.unl',
+  from: /(\|\n)/g,
+  //to: '\n',
+  to: 'd78_jdw_rfh',
+};
+replace(options)
+  .then(changes => {
+    //console.log('Modified files:', changes.join(', '));
+    changesStr = changes.join('<br>');
+    console.log(changes.join(', '));
+  })
+  .catch(error => {
+    console.error('Error occurred:', error);
+  }); 
+  setTimeout( () => { 
+    document.querySelector('.parse-results').innerHTML = '<h3>The following files were parsed:</h3>' + changesStr;
+  }, 7000);
+}
+  //document.querySelector('.test').addEventListener('click', () => test());
+  document.querySelector('.get-files').addEventListener('click', (ev) => {
+    let filePath = document.querySelector('.my-files').value;
+    // console.log(filePath);
+    parseFilesNow(filePath);
+  });
+  document.querySelector('.parse-files').addEventListener('click', () => {
+    document.querySelector('.parse-container').style.display = 'block';
+  });
+  document.querySelector('.x2').addEventListener('click', () => {
+    overlay.style.display = 'none';
+    document.querySelector('.parse-container').style.display = 'none';
+    configBox.style.display = 'none';
+});
     </script>
   </body>
 </html>
